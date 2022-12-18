@@ -3,18 +3,16 @@ import Cards from "./Cards"
 import styled from "styled-components"
 
 export default class Home extends React.Component {
-    constructor (props) {
-        super (props)
-    }
-
-
+    // constructor (props) {
+    //     super (props)
+    // }
 
     render () {
-        return <div>
+        return <>
             <H1Home>Personajes de Rick and Morty</H1Home>
             
             <Cards characters={this.props.characters} onClose={this.props.onClose}/>
-        </div>
+        </>
     }
 }
 

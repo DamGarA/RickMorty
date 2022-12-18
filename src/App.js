@@ -1,7 +1,6 @@
-import Cards from './components/Cards.jsx'
+
 import Home from './components/Home.jsx'
 import Nav from './components/Nav.jsx'
-import styled from 'styled-components'
 import React,{ useState } from 'react'
 import { Route, Routes } from 'react-router-dom'
 import About from './components/About.jsx'
@@ -17,9 +16,7 @@ function App () {
     fetch(`https://rickandmortyapi.com/api/character/${character}`)
        .then((response) => response.json())
        .then((data) => {
-
-
-          characters.map(char => {
+          characters.forEach((char) => {
             if(char.name === data.name) {
               data.name = "e";
               window.alert('El personaje ya existe')
@@ -39,7 +36,7 @@ function App () {
  }
 
   return (
-    <DivPadre>
+    <>
       <div>
         <Nav onSearch={onSearch}/>
       </div>
@@ -55,14 +52,14 @@ function App () {
         </Routes>
       </div>
       
-    </DivPadre>
+    </>
   )
 }
 
 export default App
 
-//Estilos
 
-const DivPadre = styled.div`
+
+// const DivPadre = styled.div`
    
-`
+// `
