@@ -3,9 +3,10 @@ import { connect } from 'react-redux';
 import { Link } from 'react-router-dom';
 import styled from 'styled-components';
 import { addCharacter, deleteCharacter } from '../redux/actions.js';
+import linkStyles from '../CSS Modules/botones.module.css'
 
 function Card(props) {
-   const [isFav, setIsFav] = useState (props.id)
+   const [isFav, setIsFav] = useState ("")
 
    const funcEliminar = () => {
       props.onClose(props.name)
@@ -34,17 +35,19 @@ function Card(props) {
       <DivCard>
          {
          isFav === props.name ? (
-             <button onClick={handleFavorite}>❤️</button>
+             <BotonFav onClick={handleFavorite}>❤️</BotonFav>
          ) : (
-           <button onClick={handleFavorite}>🤍</button>
+           <BotonFav onClick={handleFavorite}>🤍</BotonFav>
         )
          }
          <BotonX onClick={() => funcEliminar()}>X</BotonX>
-         <Link to={`/detail/${props.id}`}>
-            <Nombre>{props.name}</Nombre>
-         </Link>
-         <Especie>{props.species}</Especie>
-         <Genero>{props.gender}</Genero>
+         <DivInfo>
+            <Link to={`/detail/${props.id}`} className={linkStyles.link}>
+               <NombreH2>{props.name}</NombreH2>
+            </Link>
+            <InfoH2>{props.species}</InfoH2>
+            <InfoH2>{props.gender}</InfoH2>
+         </DivInfo>
          <ImgElem  src={props.image} alt="Si no aparece" />
          
       </DivCard>
@@ -71,11 +74,12 @@ export default connect(mapStateToProps, mapDispatchToProps)(Card)
 const DivCard = styled.div`
    background-color: #8c00ffc7;
    width: 200px;
-   height: 380px;
+   height: 350px;
    margin: 5px;
    border-radius: 10px;
-   border: 5px solid #3a045ffc;
-
+   border: 3px solid #3a045ffc;
+   position: relative;
+   border-color: white;
 `
 const ImgElem = styled.img`
    width: 170px;
@@ -83,30 +87,48 @@ const ImgElem = styled.img`
    margin: auto;
    display: block;
    border: 3px solid #370771;
-   border-radius: 5px;
+   border-radius: 15px;
+   position: absolute;
+   bottom: 10px;
+   left: 13px;
+   border-color: white;
 `
 
-const Nombre = styled.h2`
+const NombreH2 = styled.h2`
+   background-color: white;
    text-align: center;
-   margin: 2px;
+   margin: 5px;
+   color:  black;
+   display: block;
+   border-radius: 10px;
 `
 
-const Especie = styled.h2`
-   text-align: center;
-   margin: 2px;
+const DivInfo = styled.div`
+   display: flex;
+   flex-direction: column;
+   justify-content: space-around;
 `
 
-const Genero = styled.h2`
+const InfoH2 = styled.h2`
+   margin: 0px;
    text-align: center;
-   margin: 2px;
+   color: lime;
 `
 
 const BotonX = styled.button`
    text-align: center;
    color: white;
-   margin: 1px;
-   margin-left: 170px;
-   margin-top: 6px;
    background-color: red;
+   display: inline;
+   position: absolute;
+   right: 1px;
+   top: 1px;
+   border-radius: 5px;
+   margin-bottom: 0px;
+`
+const BotonFav = styled.button`
+   background-color: lime;
+   border-radius: 5px;
+   margin-bottom: 0px;
 `
 

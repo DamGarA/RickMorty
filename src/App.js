@@ -12,7 +12,7 @@ import Favorites from './components/Favorites.jsx'
 function App () {
   let [characters, setCharacters] = useState([])
 
-  const onSearch = (character) => {
+  const onRandom = (character) => {
     fetch(`https://rickandmortyapi.com/api/character/${character}`)
        .then((response) => response.json())
        .then((data) => {
@@ -31,18 +31,53 @@ function App () {
        });
  }
 
+  const onSearch = (character) => {
+    fetch(`https://rickandmortyapi.com/api/character`)
+      .then((res) => res.json())
+      .then(data => {
+
+        characters.forEach(c => {
+         
+
+          if (c.name.toUpperCase() === character.toUpperCase()) {
+            window.alert("Ya existe");
+            character = "e"
+          }
+        })
+
+        
+
+        data.results.forEach(char => {
+          if (char.name.toUpperCase() === character.toUpperCase()) {
+            setCharacters((oldChars) => [...oldChars, char]);
+            character = "n"
+          }
+        })
+
+        if (character !== "e" && character !== "n") {
+          window.alert("No existe")
+        }
+
+
+      })
+  }
+
  const onClose = (character) => {
   setCharacters((oldChars) => oldChars.filter(char => char.name!==character))
+ }
+
+ const onDelete = () => {
+  setCharacters([])
  }
 
   return (
     <>
       <div>
-        <Nav onSearch={onSearch}/>
+        <Nav onRandom={onRandom} onSearch={onSearch}/>
       </div>
       <div>
         <Routes>
-          <Route path='/' element={<Home characters={characters} onClose={onClose}/>} />
+          <Route path='/' element={<Home characters={characters} onClose={onClose} onDelete={onDelete}/>} />
           <Route path='/about' element={<About/>} />
           <Route path='/detail/:detailId' element={<Detail/>} />
           <Route path='/contact' element={<Contacto/>} />

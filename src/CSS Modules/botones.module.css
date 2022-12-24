@@ -1,0 +1,40 @@
+
+.container {
+    width: auto;
+    display: flex;
+    flex-direction: column;
+   
+}
+.btn {
+    margin: 2px auto;
+    border: none;
+    border-radius: 10px;
+    padding: 10px 10px;
+    font-size: 20px;
+    position: relative;
+   
+}
+.btn::before {
+    transition: all 0.85s cubic-bezier(0.68, -0.55, 0.265, 1.55);
+    content: '';
+    width: 10%;
+    height: 100%;
+    background: rgb(164, 5, 170);
+    position: absolute;
+    top: 0;
+    left: 0;
+    border-radius: 10px;
+}
+.btn .btnText {
+    color: white;
+    mix-blend-mode: difference;
+}
+.btn:hover::before {
+    background: rgb(164, 5, 170);
+    width: 100%;
+    border-radius: 10px;
+}
+
+.link {
+    text-decoration: none;
+}

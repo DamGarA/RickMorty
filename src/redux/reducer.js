@@ -1,4 +1,4 @@
-import { ADD_CHARACTER, DELETE_CHARACTER } from "./actions.js"
+import { ADD_CHARACTER, DELETE_CHARACTER, DELETE_ALL } from "./actions.js"
 
 const initialState = {
     myFavorites: []
@@ -15,6 +15,10 @@ const initialState = {
             return {
                 ...state,
                 myFavorites: state.myFavorites.filter(charac => action.payload !== charac.name)
+            }
+        case DELETE_ALL:
+            return {
+                myFavorites: []
             }
         default:
             return {...state}

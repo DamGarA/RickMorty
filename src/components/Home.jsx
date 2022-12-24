@@ -1,6 +1,7 @@
 import React from "react"
 import Cards from "./Cards"
 import styled from "styled-components"
+import btnStyles from '../CSS Modules/botones.module.css'
 
 export default class Home extends React.Component {
     // constructor (props) {
@@ -9,8 +10,15 @@ export default class Home extends React.Component {
 
     render () {
         return <>
-            <H1Home>Personajes de Rick and Morty</H1Home>
-            
+            <H1Home>Rick & Morty´s characters</H1Home>
+            <DivBorrar className={btnStyles.container}>
+                <button className={btnStyles.btn} onClick={this.props.onDelete}>
+                    <span className={btnStyles.btnText}>Delete All</span>
+                </button>
+            </DivBorrar>
+            <br/>
+            <br/>
+            <br/>
             <Cards characters={this.props.characters} onClose={this.props.onClose}/>
         </>
     }
@@ -25,7 +33,13 @@ const H1Home = styled.h1`
     padding: 20px;
     text-align: center;
     display: inline;
-    margin: 300px 0px 0px 500px;
+    position: relative;
+    left: 500px;
+    top: 40px;
     border-radius: 10px;
     border: 2px solid white;
+`
+const DivBorrar = styled.div`
+    position: absolute;
+    right: 300px;
 `

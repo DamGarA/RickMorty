@@ -1,8 +1,9 @@
-import React, {useState} from "react";
+import React, {useState, useEffect} from "react";
 import { connect } from "react-redux";
 import styled from "styled-components"
 import Cards from "./Cards";
-import { deleteCharacter } from "../redux/actions";
+import { deleteAll, deleteCharacter } from "../redux/actions";
+import btnStyles from '../CSS Modules/botones.module.css'
 
 function Favorites (props) {
     const [characters, setCharacters] = useState(props.charactersFav)
@@ -11,9 +12,25 @@ function Favorites (props) {
         setCharacters((oldChars) => oldChars.filter(char => char.name!==character));
         props.deleteCharact(character)
        }
+    
+    const borrarFavoritos = () => {
+        props.deleteAll();
+    }
+
+    useEffect(()=> {
+        setCharacters(props.charactersFav)
+    }, [props.charactersFav])
 
     return <div>
-        <H1Fav> Mis cartas favoritas</H1Fav>
+        <H1Fav> My Favorite Characters</H1Fav>
+        <DivBorrar className={btnStyles.container}>
+                <button className={btnStyles.btn} onClick={borrarFavoritos}>
+                    <span className={btnStyles.btnText}>Delete Favorites</span>
+                </button>
+        </DivBorrar>
+        <br/>
+        <br/>
+        <br/>
         <Cards characters={characters} onClose={onClose}/>
     </div>
 }
@@ -26,7 +43,8 @@ const mapStateToProps = (state) => {
 
 const mapDispatchToProps = (dispatch) => {
     return {
-        deleteCharact: (name) => dispatch(deleteCharacter(name))
+        deleteCharact: (name) => dispatch(deleteCharacter(name)),
+        deleteAll: () => dispatch(deleteAll())
     }
 }
 
@@ -41,7 +59,13 @@ const H1Fav = styled.h1`
     padding: 20px;
     text-align: center;
     display: inline;
-    margin-left: 550px;
+    position: relative;
+    left: 500px;
+    top: 40px;
     border-radius: 10px;
     border: 2px solid white;
+`
+const DivBorrar = styled.div`
+    position: absolute;
+    right: 300px;
 `

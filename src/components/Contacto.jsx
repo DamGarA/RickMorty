@@ -1,8 +1,8 @@
 //falta lo del submit q supongo q es de backend
 
 import React, {useState} from "react";
-import styled from "styled-components";
 import "../index.css"
+import formStyles from "../CSS Modules/form.module.css"
 
 
 
@@ -27,19 +27,19 @@ export default function Contacto () {
         let errors = {};
         
         if (!inputs.name) {
-            errors.name = "Falta tu nombre"
+            errors.name = "Invalid name"
         }
-        if (inputs.phone < 0) {
-            errors.phone = "Ingresa un número válido"
+        else if (inputs.phone < 0) {
+            errors.phone = "Invalid number"
         }
-        if (!regexEmail.test(inputs.email)) {
-            errors.email = "Correo Inválido"
+        else if (!regexEmail.test(inputs.email)) {
+            errors.email = "Invalid email"
         }
-        if (!inputs.subject) {
-            errors.subject = "Falta el asunto"
+        else if (!inputs.subject) {
+            errors.subject = "Subject is missing"
         }
-        if (!inputs.message) {
-            errors.message = "Falta el mensaje"
+        else if (!inputs.message) {
+            errors.message = "Message is missing"
         }
     
         return errors
@@ -51,63 +51,38 @@ export default function Contacto () {
         
     }
 
-    return <DivForm>
-        <LabelForm>Nombre:</LabelForm>
-        <InputForm name="name" type="text" value={inputs.name} onChange={handleChanges}
-        className={errors.name && "warning"} placeholder="Tu nombre..."/>
-        {errors.name && <WarningP>{errors.name}</WarningP>}
-
-        <LabelForm>Email:</LabelForm>
-        <InputForm name="email" type="email" value={inputs.email} onChange={handleChanges}  className={errors.email && "warning"} placeholder="Tu email..."/>
-        {errors.email && <WarningP>{errors.email}</WarningP>}
+    return <form className={formStyles.form}>
+        <label className={formStyles.title}>Contact Us</label>
         
-        <LabelForm>Teléfono:</LabelForm>
-        <InputForm name="phone" type="number" value={inputs.phone} onChange={handleChanges}  className={errors.phone && "warning"} placeholder="Tu teléfono..."/>
-        {errors.phone && <WarningP>{errors.phone}</WarningP>}
+        <div className={formStyles.inputcontainer}>
+        <input name="name" type="text" value={inputs.name} onChange={handleChanges}
+        className={formStyles.input} placeholder="Your Name..."/>
+        </div>
 
-        <LabelForm>Asunto:</LabelForm>
-        <InputForm name="subject" type="text" value={inputs.subject} onChange={handleChanges}  className={errors.subject && "warning"} placeholder="Indica el asunto..."/>
-        {errors.subject && <WarningP>{errors.subject}</WarningP>}
+        <div className={formStyles.inputcontainer}>
+        <input name="email" type="email" value={inputs.email} onChange={handleChanges}  className={formStyles.input} placeholder="Your Email..."/>
+        </div>
+        
+        <div className={formStyles.inputcontainer}>
+        <input name="phone" type="number" value={inputs.phone} onChange={handleChanges}  className={formStyles.input} placeholder="Your Phone..."/>
+        </div>
 
-        <LabelForm>Mensaje:</LabelForm>
-        <TextAreaForm name="message" type="text" value={inputs.message} onChange={handleChanges}  className={errors.message && "warning"} placeholder="Dejanos tu mensaje..."/>
+        <div className={formStyles.inputcontainer}>
+        <input name="subject" type="text" value={inputs.subject} onChange={handleChanges}  className={formStyles.input} placeholder="Indicates the subject..."/>
+        </div>
 
-        <SubmitForm type="submit">Enviar</SubmitForm>
-    </DivForm>
+        <textarea name="message" type="text" value={inputs.message} onChange={handleChanges}  className={formStyles.textarea} placeholder="Your Message..."/>
+
+        <button type="submit" className={formStyles.submit}>Submit</button>
+
+        {errors.name && <p className={formStyles.warningP}>{errors.name}</p>}
+        {errors.email && <p className={formStyles.warningP}>{errors.email}</p>}
+        {errors.phone && <p className={formStyles.warningP}>{errors.phone}</p>}
+        {errors.subject && <p className={formStyles.warningP}>{errors.subject}</p>}
+        {errors.message && <p className={formStyles.warningP}>{errors.message}</p>}
+    </form>
 }
 
 
 
 const regexEmail = /^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,4}$/i;
-
-const DivForm = styled.form`
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-`
-const LabelForm = styled.label`
-    font-size: larger;
-    color: white;
-    margin: auto;
-    margin-top: 30px;
-`
-const InputForm = styled.input`
-    width: 400px;
-    margin: auto;
-;
-
-`
-const TextAreaForm = styled.textarea`
-    width: 400px;
-    height: 100px;
-    margin: auto;
-`
-const SubmitForm = styled.button`
-    max-width: 200px;
-    margin: auto;
-`
-const WarningP = styled.p`
-    font-size: larger;
-    color: red;
-    margin: auto;
-`

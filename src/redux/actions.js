@@ -1,5 +1,6 @@
 export const ADD_CHARACTER = 'ADD_CHARACTER'
 export const DELETE_CHARACTER = 'DELETE_CHARACTER'
+export const DELETE_ALL = 'DELETE_ALL'
 
 
 export function addCharacter (character) {
@@ -16,3 +17,8 @@ export function deleteCharacter (name) {
     }
 }
 
+export function deleteAll () {
+   return  {
+    type: DELETE_ALL
+    }
+}
